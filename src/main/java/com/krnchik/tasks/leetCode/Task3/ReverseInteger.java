@@ -3,33 +3,46 @@ package com.krnchik.tasks.leetCode.Task3;
 public class ReverseInteger {
     public static void main(String[] args) {
         int value = 123456;
-        int reverseValue = reverseInt(value);
+        int reverseValue = new ReverseInteger()
+                .reverseBetter(value);
+        System.out.println(reverseValue);
+        reverseValue = new ReverseInteger()
+                .reverse(value);
         System.out.println(reverseValue);
     }
 
-    private static int reverseInt(int value) {
-        int number = value;
-        int result = 0;
-        while (number % 10 != 0) {
-            int digit = number % 10;
-            number = number / 10;
-            if (result > Integer.MAX_VALUE / 10 || (result == Integer.MAX_VALUE / 10 && digit > 7)) {
-                return 0;
-            }
-            if (result < Integer.MIN_VALUE / 10 || (result == Integer.MIN_VALUE / 10 && digit < -8)) {
-                return 0;
-            }
-            result = result * 10 + digit;
+    public int reverseBetter(int x) {
+        long temp = 0;
+        long xLong = x;
+        boolean posit = x >= 0;
+        if (!posit) {
+            xLong *= -1;
         }
-        return result;
+        while (xLong > 0) {
+            temp = temp * 10 + xLong % 10;
+            xLong /= 10;
+        }
+        long rt = posit ? temp : -1 * temp;
+        if (rt > Integer.MAX_VALUE || rt < Integer.MIN_VALUE) {
+            return 0;
+        }
+        return (int) rt;
     }
-    private static int reverseInteger(int value) {
-        String number = String.valueOf(value);
+
+    private int reverse(int x) {
+        String number = String.valueOf(x);
         String[] arrayNumber = number.split("");
         String result = "";
         for (int i = arrayNumber.length - 1; i >= 0; i--) {
             result = result.concat(arrayNumber[i]);
         }
-        return Integer.parseInt(result);
+        if (result.charAt(result.length() - 1) == '-') {
+            result = "-" + result.substring(0, result.length() - 1);
+        }
+        try {
+            return Integer.parseInt(result);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 }
