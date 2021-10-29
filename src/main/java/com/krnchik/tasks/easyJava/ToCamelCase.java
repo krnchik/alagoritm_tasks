@@ -5,13 +5,18 @@ import java.util.Locale;
 public class ToCamelCase {
 
     public String toCamelCase(String str) {
-        String[] words = str.split("[[-] || [_] || [ ]]");
+        if (str == null || str.isBlank())
+            throw new IllegalArgumentException();
+
+        String[] words = str.split("-|_| ]");
         StringBuilder sb = new StringBuilder(words[0]);
+
         if (words.length > 1) {
             for (int i = 1; i < words.length; i++) {
                 sb.append(upperFirstLetter(words[i]));
             }
         }
+
         return sb.toString();
     }
 

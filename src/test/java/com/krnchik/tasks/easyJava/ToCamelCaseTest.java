@@ -23,5 +23,6 @@ public class ToCamelCaseTest {
         assertThat(camelCase.toCamelCase("a_beautiful-rose")).isEqualTo("aBeautifulRose");
         assertThat(camelCase.toCamelCase("A_beautiful-rose")).isEqualTo("ABeautifulRose");
         assertThat(camelCase.toCamelCase("beautiful")).isEqualTo("beautiful");
+        assertThat(camelCase.toCamelCase("A-beautiful")).isEqualTo("ABeautiful");
     }
 }
